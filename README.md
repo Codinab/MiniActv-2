@@ -2,5 +2,5 @@
 
 # Authors
 
-Àlex Codina Braceros
+Àlex Codina Braceros <br/>
 Mario Fernandez Rodriguez
