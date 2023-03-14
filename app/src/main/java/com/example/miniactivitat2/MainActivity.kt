@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -15,16 +13,16 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    var mStartForResult: ActivityResultLauncher<Intent> = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-        ActivityResultCallback<ActivityResult>() {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = it.data
-                val message = data?.getStringExtra("message")
-                val bienvenidaTextView: TextView = findViewById(R.id.title_text_view)
-                bienvenidaTextView.text = message
-            }
-        })
+    private var mStartForResult: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = it.data
+            val message = data?.getStringExtra("message")
+            val bienvenidaTextView: TextView = findViewById(R.id.title_text_view)
+            bienvenidaTextView.text = message
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             if (textToRepeat.isEmpty() || timesToRepeat.isEmpty()) {
                 return@setOnClickListener
             }
+
             intent.putExtra("textToRepeat", textToRepeat)
             intent.putExtra("timesToRepeat", timesToRepeat)
             nameEditText.text.clear()
